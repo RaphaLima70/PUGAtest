@@ -25,5 +25,11 @@ public class CurrencyManager : MonoBehaviour
     public void AddCurrency(int valueToAdd)
     {
         totalCurrencys += valueToAdd;
+        SaveCurrency();
+    }
+
+    public void SaveCurrency()
+    {
+        PlayerPrefs.SetInt("Currencys", PlayerPrefs.GetInt("Currencys", 0) + totalCurrencys);
     }
 }

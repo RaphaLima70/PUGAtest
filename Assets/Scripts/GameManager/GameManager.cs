@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [Header("Behaviour")]
     [HideInInspector] public float gameTime = 1;
     [HideInInspector] public bool endGame;
+    [HideInInspector] public bool loose;
+    [HideInInspector] public int initialHealth;
 
 
     void Awake()
@@ -20,6 +22,10 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    void Start()
+    {
+        initialHealth = ship.GetComponent<ShipController>().allStatus[ship.GetComponent<ShipController>().healthLevel - 1].health;
+    }
 
     void Update()
     {
@@ -36,11 +42,11 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void RestatGame()
+    public void RestatGame()
     {
         endGame = false;
         ship.transform.position = new Vector3(pivotToRestart.position.x, ship.transform.position.y, pivotToRestart.position.z);
-        ship.GetComponent<ShipController>().allStatus[ship.GetComponent<ShipController>().healthLevel - 1].health = 100;
+        ship.GetComponent<ShipController>().allStatus[ship.GetComponent<ShipController>().healthLevel - 1].health = initialHealth;
         ship.GetComponent<ShipController>().EnebleMesh(true);
         SpawnManager.Instance.DestroyerAllEnemy();
         SpawnManager.Instance.spawnAble = true;

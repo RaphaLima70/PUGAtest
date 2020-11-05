@@ -127,6 +127,7 @@ public class ShipController : Status
                 if (this.allStatus[healthLevel - 1].health <= 0)
                 {
                     EnebleMesh(false);
+                    GameManager.instance.loose = true;
                     GameManager.Instance.EndGame();
                 }
             }
